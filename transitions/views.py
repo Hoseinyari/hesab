@@ -13,13 +13,13 @@ def home_view (request):
 
 def expose_view(request):
 
-    exposes = Transitions.objects.filter(name=exposes).values()
+    exposes = Transitions.objects.filter(name='expose').values()
 
 
     return render()
 
 def income_view(request):
-    incomes = Transitions.objects.filter(name=incomes).values()
+    incomes = Transitions.objects.filter(name='income').values()
 
     return render()
 
