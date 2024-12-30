@@ -8,9 +8,9 @@ class TransitionsAdmin (admin.ModelAdmin):
 
 admin.site.register(Transitions,TransitionsAdmin)
 
-# class CategoryAdmin (admin.ModelAdmin):
-#     model = Category
-#     list_display = ["name","start_time","end_time"]
+class CategoryAdmin (admin.ModelAdmin):
+    model = Category
+    list_display = ["name","start_time","end_time"]
 
 
-# admin.site.register(Category,CategoryAdmin)
+admin.site.register(Category,CategoryAdmin)

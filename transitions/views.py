@@ -7,32 +7,33 @@ from transitions.models import *
 
 def home_view (request):
 
-    transitions=transitions.objects.all()
+    all_transitions=Transitions.objects.all()
 
-    return render()
+    return render(request,'transitions/all_transitions.html',{"all_transitions":list(all_transitions)})
 
 def expose_view(request):
 
-    exposes = Transitions.objects.filter(name='expose').values()
+    exposes = Transitions.objects.filter(category='expose').values()
 
 
-    return render()
+    return render(request,'transitions/expose.html',{"exposes":list(exposes)})
 
 def income_view(request):
-    incomes = Transitions.objects.filter(name='income').values()
+    
+    incomes = Transitions.objects.filter(category='income').values()
 
-    return render()
+    return render(request,'transitions/incime.html',{"incomes":list(incomes)})
 
-def add_transitions(request):
+# def add_transitions(request):
 
-    transitions = Transitions (
+#     transitions = Transitions (
 
-        text = request.post["text"],
-        amounth = request.post["amounth"],
-        date = request.post["date"],
-        category = request.post["category"],
-    )
+#         text = request.post["text"],
+#         amounth = request.post["amounth"],
+#         date = request.post["date"],
+#         category = request.post["category"],
+#     )
 
-    transitions.save()
+#     transitions.save()
         
-    return render()
+#     return render(request,'transitions/add_transitions.html',{"incomes":list(incomes)})
