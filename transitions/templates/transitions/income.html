@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نمایش تراکنش‌ها</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #55e955; 
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: right;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>تراکنش‌های ثبت شده</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>عنوان</th>
+                <th>مبلغ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- dynamic data from db-->
+            <tr>
+                <td>خرید کتاب</td>
+                <td>50000 تومان</td>
+            </tr>
+            <tr>
+                <td>پرداخت قبض</td>
+                <td>30000 تومان</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
