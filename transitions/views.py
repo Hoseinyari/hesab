@@ -1,7 +1,7 @@
 from datetime import date
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from transitions.models import *
+from transitions.models import Transitions,Category
 
 # Create your views here.
 
@@ -24,16 +24,16 @@ def income_view(request):
 
     return render(request,'transitions/incime.html',{"incomes":list(incomes)})
 
-# def add_transitions(request):
+def add_transitions(request):
 
-#     transitions = Transitions (
+    transitions = Transitions (
 
-#         text = request.post["text"],
-#         amounth = request.post["amounth"],
-#         date = request.post["date"],
-#         category = request.post["category"],
-#     )
+        text = request.post["text"],
+        amounth = request.post["amounth"],
+        date = request.post["date"],
+        category = request.post["category"],
+    )
 
-#     transitions.save()
+    transitions.save()
         
-#     return render(request,'transitions/add_transitions.html',{"incomes":list(incomes)})
+    return render(request,'transitions/add_transitions.html',{"transitions":list(transitions)})
