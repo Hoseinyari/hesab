@@ -1,39 +1,31 @@
-from datetime import date
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from transitions.models import Transitions,Category
+from datetime import date 
+from django.shortcuts import render, redirect 
+from django.http import HttpResponse 
+from transitions.models import Transitions, Category 
 
-# Create your views here.
+# Create your views here. 
 
-def home_view (request):
+def home_view(request): 
+    all_transitions = Transitions.objects.all() 
+    return render(request, 'transitions/all_transitions.html', {"all_transitions": all_transitions}) 
 
-    all_transitions=Transitions.objects.all()
+def expose_view(request): 
+    exposes = Transitions.objects.filter(category='expose').values() 
+    return render(request, 'transitions/expose.html', {"exposes": list(exposes)}) 
 
-    return render(request,'transitions/all_transitions.html',{"all_transitions":list(all_transitions)})
+def income_view(request): 
+    incomes = Transitions.objects.filter(category='income').values() 
+    return render(request, 'transitions/income.html', {"incomes": list(incomes)}) 
 
-def expose_view(request):
+def add_transitions(request): 
+    if request.method == 'POST': 
+        transitions = Transitions(
+            text=request.POST["text"], 
+            amount=request.POST["amount"], 
+            date=request.POST["date"], 
+            category=request.POST["category"], 
+        ) 
+        transitions.save() 
+        return redirect('home_view') 
 
-    exposes = Transitions.objects.filter(category='expose').values()
-
-
-    return render(request,'transitions/expose.html',{"exposes":list(exposes)})
-
-def income_view(request):
-    
-    incomes = Transitions.objects.filter(category='income').values()
-
-    return render(request,'transitions/incime.html',{"incomes":list(incomes)})
-
-def add_transitions(request):
-
-    transitions = Transitions (
-
-        text = request.post["text"],
-        amounth = request.post["amounth"],
-        date = request.post["date"],
-        category = request.post["category"],
-    )
-
-    transitions.save()
-        
-    return render(request,'transitions/add_transitions.html',{"transitions":list(transitions)})
+    return render(request, 'transitions/add_transitions.html')
