@@ -5,7 +5,8 @@ from .models import Transitions,Category
 
 class CategoryAdmin (admin.ModelAdmin):
     model = Category
-    list_display = ["name","start_time","end_time"]
+    list_display = ["name"]
+    # ,"start_time","end_time"
 
 
 admin.site.register(Category,CategoryAdmin)
