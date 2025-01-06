@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Transitions,Category
+from .models import Transition,Category
 
 # Register your models here.
 
@@ -12,8 +12,8 @@ class CategoryAdmin (admin.ModelAdmin):
 admin.site.register(Category,CategoryAdmin)
 
 
-class TransitionsAdmin (admin.ModelAdmin):
-    model = Transitions
+class TransitionAdmin (admin.ModelAdmin):
+    model = Transition
     list_display = ["id","text","amounth","date","category"]
 
-admin.site.register(Transitions,TransitionsAdmin)
+admin.site.register(Transition,TransitionAdmin)

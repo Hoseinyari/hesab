@@ -3,11 +3,16 @@ from django.db import models
 # Create your models here
 
 class Category(models.Model):
-    name= models.CharField(max_length=200)
-    def ___str__(self):
-        return self.title
+    name  = [
+        ('expose','خرج'),
+        ('income','درامد')
+    ]
+    statuse=models.CharField(max_length=200,choices = name)
+
+    # def ___str__(self):
+    #     return self.title
     
-class Transitions(models.Model):
+class Transition(models.Model):
     text = models.CharField(max_length=300)
     amounth = models.PositiveBigIntegerField()
     date = models.DateTimeField(auto_now=True , editable=False)
