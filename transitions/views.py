@@ -1,7 +1,7 @@
 from datetime import date 
 from django.shortcuts import render, redirect 
 from django.http import HttpResponse 
-from transitions.models import Transition, Category 
+from transitions.models import Transition
 
 # Create your views here. 
 

@@ -1,13 +1,6 @@
-idea
-_________________________________________
-sort models for sorting transitions by 
-1_ time
-2_amounth
+idea:
+mounthly pay reminder
 
-reminder for usual mounthly pay
 _________________________________________
-
-debug
-_________________________________________
-migrate error
-_________________________________________
+debug:
+template error 
