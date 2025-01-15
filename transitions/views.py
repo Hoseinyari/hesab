@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse ,HttpResponseRedirect
 from transitions.models import Transition
 from django.urls import reverse
-
 # Create your views here. 
 
 def home_view(request): 
@@ -27,6 +26,10 @@ def add_transitions(request):
             category=form['category'], 
         ) 
         new_transition.save() 
-        return HttpResponseRedirect(reverse('home_view')) 
     
     return render(request,'transitions/add_transitions.html')
+
+
+def submit_transaction(request):
+    
+    return HttpResponseRedirect(reverse('home_view')) 

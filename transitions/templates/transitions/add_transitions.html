@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -43,7 +44,10 @@
 
 <h2>فرم ثبت تراکنش</h2>
 
-<form action="/submit_transaction" method="post">
+<form action="/submit_transaction/" method="post">
+    
+    {%csrf_token%}
+
     <label for="title">عنوان:</label>
     <input type="text" id="title" name="title" required>
 
