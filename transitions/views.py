@@ -4,17 +4,18 @@ from transitions.models import Transition
 from django.urls import reverse
 # Create your views here. 
 
+
 def home_view(request): 
     all_transitions = Transition.objects.all().order_by("-date")
     return render(request,'transitions/all_transitions.html',{"all_transitions": all_transitions})
 
 def expose_view(request): 
-    exposes = Transition.objects.filter(category='expose').values() 
-    return render(request, "transitions/expose.html", {"exposes": list(exposes)}) 
+    exposes = Transition.objects.filter(id = 1)
+    return render(request,'transitions/expose.html', {"exposes": list(exposes)}) 
 
 def income_view(request): 
-    incomes = Transition.objects.filter(category='income').values()
-    return render(request, "transitions/income.html", {"incomes": list(incomes)}) 
+    incomes = Transition.objects.filter(id = 2)
+    return render(request,'transitions/income.html', {"incomes": list(incomes)}) 
 
 def add_transitions(request): 
     if request.method == 'POST': 

@@ -8,6 +8,8 @@ path("income/",income_view,name="income_view"),
 
 path("expose/",expose_view,name="expose_view"),    
 
+# path('expose/<int:id>/', expose_view, name='expose_view'),    
+
 path("add_transitions/",add_transitions,name="add_transitions"),
 
 path("submit_transaction/",submit_transaction,name="submit_transaction")

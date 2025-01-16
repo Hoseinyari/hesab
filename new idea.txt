@@ -1,0 +1,9 @@
+idea :
+mounthly pay reminder
+add user app
+
+_________________________________________
+debug:
+template error (all transitions) render
+
+connect database and frontend
