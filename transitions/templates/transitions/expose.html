@@ -43,20 +43,32 @@
     <table>
         <thead>
             <tr>
-                <th>عنوان</th>
                 <th>مبلغ</th>
+                
+                <th>تاریخ </th>
+                
+                <th>عنوان</th>
+
             </tr>
         </thead>
         <tbody>
             <!-- dynamic data from db-->
+            
+            {% for expose in exposes %}
+            
             <tr>
-                <td>خرید کتاب</td>
-                <td>50000 تومان</td>
+                
+                <td>{{expose.amounth}}</td>
+                
+                <td>{{expose.date}}</td>
+
+                <td>{{expose.text}}</td>
+                
             </tr>
-            <tr>
-                <td>پرداخت قبض</td>
-                <td>30000 تومان</td>
-            </tr>
+            
+            {% endfor %} 
+            
+            
         </tbody>
     </table>
 </div>

@@ -43,20 +43,26 @@
     <table>
         <thead>
             <tr>
-                <th>عنوان</th>
                 <th>مبلغ</th>
+                <th>تاریخ</th>
+                <th>عنوان</th>
+
             </tr>
         </thead>
         <tbody>
             <!-- dynamic data from db-->
             <tr>
-                <td>خرید کتاب</td>
-                <td>50000 تومان</td>
+                
+                {% for income in incomes %}
+                
+                <td>{{income.amounth}}</td>
+                
+                <td>{{income.date}}</td>
+                
+                <td>{{income.text}}</td>
+
             </tr>
-            <tr>
-                <td>پرداخت قبض</td>
-                <td>30000 تومان</td>
-            </tr>
+            {% endfor %}
             
         </tbody>
     </table>

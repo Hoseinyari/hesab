@@ -4,6 +4,7 @@ add user app
 
 _________________________________________
 debug:
-template error (all transitions) render
 
-connect database and frontend
+template error (all transitions)=> render
+
+set category for new transition

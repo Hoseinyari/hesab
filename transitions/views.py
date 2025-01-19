@@ -10,11 +10,11 @@ def home_view(request):
     return render(request,'transitions/all_transitions.html',{"all_transitions": all_transitions})
 
 def expose_view(request): 
-    exposes = Transition.objects.filter(id = 1)
+    exposes = Transition.objects.filter(category_id = 1)
     return render(request,'transitions/expose.html', {"exposes": list(exposes)}) 
 
 def income_view(request): 
-    incomes = Transition.objects.filter(id = 2)
+    incomes = Transition.objects.filter(category_id = 2)
     return render(request,'transitions/income.html', {"incomes": list(incomes)}) 
 
 def add_transitions(request): 
@@ -22,7 +22,7 @@ def add_transitions(request):
         form = request.post
         new_transition= Transition(
             text=form['text'], 
-            amount=form['amounth'], 
+            amounth=form['amounth'], 
             date=form['date'], 
             category=form['category'], 
         ) 
