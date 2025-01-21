@@ -31,6 +31,8 @@ def add_transitions(request):
     return render(request,'transitions/add_transitions.html')
 
 
-def submit_transaction(request):
+def submit_transaction(request,new_transition):
+
+    new_transition.save() 
     
     return HttpResponseRedirect(reverse('home_view')) 

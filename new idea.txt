@@ -8,3 +8,5 @@ debug:
 template error (all transitions)=> render
 
 set category for new transition
+
+favicon and static file
