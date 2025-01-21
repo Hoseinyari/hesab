@@ -45,20 +45,23 @@
     </thead>
     <tbody>
         <!-- dynamic data from db-->
+
+        {% for transition in all_transitions %}
+            
         <tr>
-            <td>خرید کتاب</td>
-            <td>50000 تومان</td>
-            <td>1402/07/15</td>
-        </tr>
-        <tr>
-            <td>پرداخت قبض</td>
-            <td>30000 تومان</td>
-            <td>1402/07/16</td>
+            
+            <td>{{transition.amounth}}</td>
+            
+            <td>{{transition.date}}</td>
+
+            <td>{{transition.text}}</td>
+            
         </tr>
         
+        {% endfor %} 
     </tbody>
 </table>
-<!-- <a href="add_transitions.html" class="button">
-</a> -->
+<a href="add_transitions.html" class="button">
+</a>
 </body>
 </html>

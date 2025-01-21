@@ -58,10 +58,11 @@ ROOT_URLCONF = 'hesab.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'transitions/templates')],
+        'DIRS': [os.path.join(BASE_DIR,'transitions/templates/transitions')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',

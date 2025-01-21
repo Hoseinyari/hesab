@@ -5,9 +5,14 @@ from django.urls import reverse
 # Create your views here. 
 
 
+# def home_view(request): 
+#     all_transitions = Transition.objects.all().order_by("-date")
+#     return render(request,'transitions/all_transitions.html',{"all_transitions": list(all_transitions)})
+
 def home_view(request): 
     all_transitions = Transition.objects.all().order_by("-date")
-    return render(request,'transitions/all_transitions.html',{"all_transitions": all_transitions})
+    return render(request,'transitions/home.html',{"all_transitions": list(all_transitions)})
+
 
 def expose_view(request): 
     exposes = Transition.objects.filter(category_id = 1)
@@ -18,8 +23,8 @@ def income_view(request):
     return render(request,'transitions/income.html', {"incomes": list(incomes)}) 
 
 def add_transitions(request): 
-    if request.method == 'POST': 
-        form = request.post
+    if request.method == 'GET': 
+        form = request.POST
         new_transition= Transition(
             text=form['text'], 
             amounth=form['amounth'], 
@@ -28,7 +33,10 @@ def add_transitions(request):
         ) 
         new_transition.save() 
     
-    return render(request,'transitions/add_transitions.html')
+        return render(request,'transitions/add_transitions.html')
+    else:
+
+        return render(request,'transitions/home.html')
 
 
 def submit_transaction(request,new_transition):

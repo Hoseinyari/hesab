@@ -1,12 +1,9 @@
 idea :
 mounthly pay reminder
-add user app
 
 _________________________________________
 debug:
 
-template error (all transitions)=> render
+add transition view 
 
-set category for new transition
-
-favicon and static file
+add user app

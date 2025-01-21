@@ -6,11 +6,11 @@
 <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}" >
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نمایش درامد ها</title>
+    <title>نمایش تمام تراکنش‌ها</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #55e955; 
+            background-color: #009675; 
             margin: 0;
             padding: 20px;
         }
@@ -39,37 +39,42 @@
     </style>
 </head>
 <body>
-
 <div class="container">
-    <h2>درامدهای ثبت شده</h2>
+    <h2>تراکنش‌های ثبت شده</h2>
 
     <table>
         <thead>
             <tr>
+                <th>عنوان</th>
                 <th>مبلغ</th>
                 <th>تاریخ</th>
-                <th>عنوان</th>
-
+                <th>دسته بندی</th>
             </tr>
         </thead>
         <tbody>
             <!-- dynamic data from db-->
+
+            {% for transition in all_transitions %}
+                
             <tr>
                 
-                {% for income in incomes %}
+                <td>{{transition.text}}</td>
                 
-                <td>{{income.amounth}}</td>
+                <td>{{transition.amounth}}</td>
                 
-                <td>{{income.date}}</td>
-                
-                <td>{{income.text}}</td>
+                <td>{{transition.date}}</td>
 
+                <td>{{transition.category}}</td>
+                
             </tr>
-            {% endfor %}
             
+            {% endfor %} 
         </tbody>
     </table>
+    >
 </div>
+    <!-- <a href="add_transitions.html" class="button"> -->
+    <!-- </a -->
 
 </body>
 </html>
