@@ -4,6 +4,4 @@ mounthly pay reminder
 _________________________________________
 debug:
 
-add_transition view 
-
 add user app

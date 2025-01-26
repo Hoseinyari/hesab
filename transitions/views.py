@@ -1,6 +1,6 @@
 from django.shortcuts import render 
 from django.http import HttpResponse ,HttpResponseRedirect
-from transitions.models import Transition,Category
+from transitions.models import Transition
 from django.urls import reverse
 # Create your views here. 
 
@@ -15,11 +15,11 @@ def home_view(request):
 
 
 def expose_view(request): 
-    exposes = Transition.objects.filter(category_id = 1)
+    exposes = Transition.objects.filter(category = 'expose')
     return render(request,'transitions/expose.html', {"exposes": list(exposes)}) 
 
 def income_view(request): 
-    incomes = Transition.objects.filter(category_id = 2)
+    incomes = Transition.objects.filter(category = 'income')
     return render(request,'transitions/income.html', {"incomes": list(incomes)}) 
 
 def add_transitions(request):
@@ -30,7 +30,7 @@ def add_transitions(request):
             text=form['text'], 
             amount=form['amount'], 
             date=form['date'], 
-            category=form.get('category.status'), 
+            category=form['category'], 
         ) 
         new_transition.save() 
     
