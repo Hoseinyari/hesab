@@ -47,27 +47,29 @@
 
 <h2>فرم ثبت تراکنش</h2>
 
-<form action="/submit_transaction/" method="post">
-    
-    {%csrf_token%}
-
-    <label for="text">عنوان:</label>
+<form action="/add_transitions/" method="post">
+    {% csrf_token %}
+    <label for="text">Text:</label>
     <input type="text" id="text" name="text" required>
-     
-    <label for="amounth">مبلغ:</label>
-    <input type="number" id="amounth" name="amounth" required>
     
-    <label for="date">تاریخ:</label>
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" required>
+    
+    <label for="date">Date:</label>
     <input type="date" id="date" name="date" required>
     
-    <label for="category">دسته بندی:</label>
-    <form>
-         <input type="radio"  name="category" value="expose">
-         <label for="expose">خرج</label><br>
-         <input type="radio"  name="category" value="income">
-         <label for="income">درامد</label><br>
-        </form> 
-    <input type="submit" value="ثبت تراکنش">
+    <label>Category:</label><br>
+
+    <label for="status">Choose a category:</label>
+
+        <select name="status" id="status">
+  <option value="expose">expose</option>
+  
+  <option value="income">income</option>
+        </select>
+    
+
+    <input type="submit" value="Submit">
 </form>
 
 </body>

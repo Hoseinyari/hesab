@@ -4,17 +4,18 @@ from django.db import models
 
 class Category(models.Model):
     name  = [
-        ('expose','خرج'),
-        ('income','درامد')
+        ('expose','income')
+       
     ]
-    statuse=models.CharField(max_length=200,choices = name,default='خرج')
+    status=models.CharField(max_length=200,choices = name,default='expose')
+
     def __str__(self): 
         return self.statuse
 
     
 class Transition(models.Model):
     text = models.CharField(max_length=300)
-    amounth = models.PositiveBigIntegerField()
+    amount = models.PositiveBigIntegerField()
     date = models.DateTimeField(auto_now=True , editable=False)
     category = models.ForeignKey(Category , on_delete=models.PROTECT)   
     def ___str__(self):

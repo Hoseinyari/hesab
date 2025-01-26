@@ -12,6 +12,6 @@ admin.site.register(Category,CategoryAdmin)
 
 class TransitionAdmin (admin.ModelAdmin):
     model = Transition
-    list_display = ["id","text","amounth","date","category"]
+    list_display = ["id","text","amount","date","category"]
 
 admin.site.register(Transition,TransitionAdmin)
