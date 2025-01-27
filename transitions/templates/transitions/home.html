@@ -45,10 +45,10 @@
     <table>
         <thead>
             <tr>
-                <th>عنوان</th>
-                <th>مبلغ</th>
-                <th>تاریخ</th>
                 <th>دسته بندی</th>
+                <th>تاریخ</th>
+                <th>مبلغ</th>
+                <th>عنوان</th>
             </tr>
         </thead>
         <tbody>
@@ -58,23 +58,52 @@
                 
             <tr>
                 
-                <td>{{transition.text}}</td>
+                <td>{{transition.category}}</td>
+                
+                <td>{{transition.date}}</td>
                 
                 <td>{{transition.amount}}</td>
                 
-                <td>{{transition.date}}</td>
-
-                <td>{{transition.category}}</td>
+                <td>{{transition.text}}</td>
                 
             </tr>
             
             {% endfor %} 
         </tbody>
     </table>
-    >
+    <head>
+        <title>buttons</title>
+        <style>
+            .button-class {
+                background-color: rgb(6, 168, 106);
+                
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                justify-content: space-between;
+                font-size: 16px;
+                margin: 20px 9.5%;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <a href="expose" class="button-class">
+          Go to expose Page</a>
+        <a href="income" class="button-class">
+            Go to income Page</a>
+        <a href="add_transitions" class="button-class">
+                add new transition</a>
+    </body>
+    
+    
 </div>
-    <!-- <a href="add_transitions.html" class="button"> -->
-    <!-- </a -->
+    
 
 </body>
 </html>

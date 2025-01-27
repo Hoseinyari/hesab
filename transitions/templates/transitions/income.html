@@ -46,8 +46,8 @@
     <table>
         <thead>
             <tr>
-                <th>مبلغ</th>
                 <th>تاریخ</th>
+                <th>مبلغ</th>
                 <th>عنوان</th>
 
             </tr>
@@ -58,9 +58,9 @@
                 
                 {% for income in incomes %}
                 
-                <td>{{income.amount}}</td>
-                
                 <td>{{income.date}}</td>
+                
+                <td>{{income.amount}}</td>
                 
                 <td>{{income.text}}</td>
 
@@ -69,6 +69,30 @@
             
         </tbody>
     </table>
+    <head>
+        <title>back to home page</title>
+        <style>
+            .button-class {
+                background-color: #55e955;
+                
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 20px ;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <a href="/" class="button-class">
+            back to home page</a>
+    </body>
 </div>
 
 </body>
