@@ -6,6 +6,7 @@ class Transition(models.Model):
     text = models.CharField(max_length=300)
     amount = models.PositiveBigIntegerField()
     date = models.DateTimeField(auto_now=True , editable=False)
+    #وضعیت هایی که فیلد کتگوری می تواند داشته یاشد
     status = [
         ("expose","income")
     ]
