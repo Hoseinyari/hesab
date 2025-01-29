@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #my_app
-    'transitions'
-    # 'users'
+    'transitions',
+    'users'
 ]
 
 MIDDLEWARE = [
