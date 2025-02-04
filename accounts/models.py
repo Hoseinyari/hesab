@@ -1,14 +1,42 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import User, AbstractBaseUser, UserManager , PermissionsMixin
 from django.utils import  timezone
-from django.conf import settings
+
+
+class AccountManger(UserManager):
+    def _create_user(self, phone_number : str | None, password : str | None, **extra_fields):
+        if not len(phone_number) == 11 or not phone_number.isdigit() or not phone_number.startswith("09"):
+            raise ValueError("شماره همراه وارد شده صحیح نیست (باید ۱۱ رقم باشد و با ۰۹ شروع شود )!!!")
+        Account = self.model(phone_number=phone_number, **extra_fields)
+        Account.set_password(password)
+
+        Account.save(using=self._db)
+
+        return Account
+
+    def create_user(self, phone_number :str | None, password :str | None, **extra_fields):
+        extra_fields.setdefault("is_staff", False)
+        extra_fields.setdefault("is_superuser", False)
+
+        return self._create_user(phone_number, password, **extra_fields)
+
+    def create_superuser(self, phone_number :str | None, password : str | None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+
+        return self._create_user(phone_number, password, **extra_fields)
+
+
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=100 , blank=True , default="")
     phone_number = models.CharField(max_length=20, blank=True, unique=True, default="")
 
-    
+    name = models.CharField(max_length=100, blank=True, default="")
+    last_name = models.CharField(max_length=100, blank=True, default="")
+
+    email = models.EmailField(max_length=200, blank=True, default="")
+
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -16,21 +44,24 @@ class Account(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(blank=True, null=True)
 
+    objects = AccountManger()
 
     USERNAME_FIELD = "phone_number"
-
+    EMAIL_FIELD = "email"
     REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = "Account"
         verbose_name_plural = 'Accounts'
 
-       
-    def __str__(self) -> str:
-        return f"{self.username} : {self.phone_number}"
+    def get_full_name(self):
+        return self.name + " " + self.last_name
 
+    def get_short_name(self):
+        return self.name  or self.phone_number
+    
 
 class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    username = models.CharField(max_length=100, null=True, blank=True)
+    user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=50, null=True, blank=True)
 

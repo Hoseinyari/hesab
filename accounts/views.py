@@ -1,47 +1,53 @@
-from django.shortcuts import render
-from django.contrib.auth import login, logout
+from django.shortcuts import render,redirect
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from accounts.models import *
-from accounts.forms import MyLoginForm , CreateAccounttForm
+from accounts.forms import MyLoginForm , CreateAccountForm
 
 # Create your views here.
-def login_view(request):
-        
-    if not request.user.is_authenticated:
-             
-        if request.method == "POST":
-                form = MyLoginForm(request.POST)
-                if form.is_valid():
-                
-                    username = form.cleaned_data["username"]
-                    password = form.cleaned_data["password"]
-                    try:
-                        Account = Account.objects.get(username = username)
-                    except Exception as error:
-                        print(error)
-                        return HttpResponse("not ok")
-                        # return HttpResponseRedirect(reverse("login"))
-                    if Account is not None:
-                        if password == Account.password:
-                            login(request,Account)
-                            return render(request,"home", {"Account":Account})     
-                        else:
-                            
-                            return HttpResponseRedirect(reverse("login"))
-                    
-                    else:
-            
-                        return HttpResponse(f"<h2>No such a User : {username}</h2>")
-                else:
-                     return HttpResponse("onvalid")
-        else:
-             form =  MyLoginForm()
-             return HttpResponse("REQUEST METHOD ")
-            #  return render(request,'accounts/login.html',{"form":form})
+def home_view(request):
+     
+     return render(request,"accounts/main_page.html")
 
-    else:    
+def login_view(request):
+
+    if not request.user.is_authenticated:
+
+        if request.method == "POST":
+            form = MyLoginForm(request.POST)
+            if form.is_valid():
+                print('valid!!!')
+                data = form.cleaned_data
+                username = data["username"]
+                password = data["password"]
+                try:
+                    account = Account.objects.get(username=username)
+                except Exception as error:
+                    print(error)
+                    return HttpResponseRedirect(reverse("login"))
+
+                # account = authenticate(request, username=username, password=password)
+                # if there is such a credential
+                if account is not None:
+                    if password == account.password:
+                        login(request, account)
+                        # return HttpResponseRedirect(reverse('home'))
+                        return render(request,"home.html", {"account":account})
+                    else:
+                        return HttpResponseRedirect(reverse("login"))
+                # if authentication failed!!!
+                else:
+            
+            
+                    return HttpResponse(f"<h2>No such a User : {username}</h2>")
+            else:
+                return HttpResponse("form is not valid")
+        else:
+            form = MyLoginForm()
+            return render(request,template_name="login.html", context={"form": form})
+    else:
         return HttpResponseRedirect(reverse("home"))
      
 @login_required
@@ -51,19 +57,30 @@ def logout_view(request):
 
 
 def signup_view(request):
-    if request.method == "POST":
-        form =  CreateAccounttForm(request.POST)
-        if form.is_valid :
-            new_account = Account(
-                 username = form['username'],
-                 password = form['password'],
-                 password_confirm = form['password_confirm']
-            )
-            # if password == password_confirm :
-            
-            new_account.save()
-              
-            return HttpResponseRedirect(reverse("home"))
+
+    if request.method == 'POST':
+        form = CreateAccountForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            print(form.cleaned_data)
+            try:
+                account = Account.objects.get(username=data["phone_number"])
+            except Exception as error:
+                # print(data)
+                account = Account(
+                    phone_number=data["phone_number"],
+                    username=data["phone_number"],
+                    first_name=data["name"],
+                    last_name=data["last_name"],
+                    password=int(data["phone_number"])
+                )
+                account.save()
+                return HttpResponseRedirect(reverse("home"))
+            else:
+                return HttpResponseRedirect(reverse("home"))
+        else:
+            return HttpResponse(f"{form.errors.as_data()}")
     else:
-            return render(request,"accounts/signup.html")
-        
+        form = CreateAccountForm()
+        return render(request,"accounts/main_page.html", {"form":form})
+

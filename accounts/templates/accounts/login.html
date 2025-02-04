@@ -57,7 +57,8 @@
 <body>
     <div class="login-container">
         <h2>ورود به حساب کاربری</h2>
-        <form>
+        <form method="post">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="username">نام کاربری</label>
                 <input type="text" id="username" name="username" required>

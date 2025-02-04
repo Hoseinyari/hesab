@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 ]
 
 
-AUTH_USER_MODEL = 'accounts.Account'
+AUTH_USER_MODEL = 'accounts.Account'  
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,7 +74,7 @@ TEMPLATES = [
         },
     },
 ]
-
+APPEND_SLASH=True
 WSGI_APPLICATION = 'hesab.wsgi.application'
 
 
