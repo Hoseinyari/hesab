@@ -32,8 +32,7 @@ class AccountManger(UserManager):
 class Account(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=20, blank=True, unique=True, default="")
 
-    name = models.CharField(max_length=100, blank=True, default="")
-    last_name = models.CharField(max_length=100, blank=True, default="")
+    username = models.CharField(max_length=50)
 
     email = models.EmailField(max_length=200, blank=True, default="")
 
@@ -54,14 +53,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         verbose_name = "Account"
         verbose_name_plural = 'Accounts'
 
-    def get_full_name(self):
-        return self.name + " " + self.last_name
-
-    def get_short_name(self):
-        return self.name  or self.phone_number
-    
-
 class Profile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=50, null=True, blank=True)
+    username = models.CharField(max_length=50)
 

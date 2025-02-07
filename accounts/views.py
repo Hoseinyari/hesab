@@ -12,10 +12,9 @@ def home_view(request):
      return render(request,"accounts/main_page.html")
 
 def login_view(request):
-
     if not request.user.is_authenticated:
-
         if request.method == "POST":
+            print(request.POST)
             form = MyLoginForm(request.POST)
             if form.is_valid():
                 print('valid!!!')
@@ -28,27 +27,22 @@ def login_view(request):
                     print(error)
                     return HttpResponseRedirect(reverse("login"))
 
-                # account = authenticate(request, username=username, password=password)
-                # if there is such a credential
                 if account is not None:
                     if password == account.password:
                         login(request, account)
-                        # return HttpResponseRedirect(reverse('home'))
-                        return render(request,"home.html", {"account":account})
+                        return render(request, "home.html", {"account": account})
                     else:
                         return HttpResponseRedirect(reverse("login"))
-                # if authentication failed!!!
                 else:
-            
-            
                     return HttpResponse(f"<h2>No such a User : {username}</h2>")
             else:
+                print(form.errors)  # Print form errors to debug
                 return HttpResponse("form is not valid")
         else:
             form = MyLoginForm()
-            return render(request,template_name="login.html", context={"form": form})
+            return render(request, template_name="login.html", context={"form": form})
     else:
-        return HttpResponseRedirect(reverse("home"))
+        return HttpResponseRedirect(reverse("home"))    
      
 @login_required
 def logout_view(request):
@@ -60,6 +54,7 @@ def signup_view(request):
 
     if request.method == 'POST':
         form = CreateAccountForm(request.POST)
+        print(form)
         if form.is_valid():
             data = form.cleaned_data
             print(form.cleaned_data)
@@ -69,10 +64,11 @@ def signup_view(request):
                 # print(data)
                 account = Account(
                     phone_number=data["phone_number"],
-                    username=data["phone_number"],
                     first_name=data["name"],
                     last_name=data["last_name"],
-                    password=int(data["phone_number"])
+                    password=data["password"],
+                    confirm_password=data["confirm_password"]
+
                 )
                 account.save()
                 return HttpResponseRedirect(reverse("home"))
