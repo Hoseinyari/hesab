@@ -14,10 +14,8 @@ def home_view(request):
 def login_view(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            print(request.POST)
-            form = MyLoginForm(request.POST)
+            form = MyLoginForm (request.POST)
             if form.is_valid():
-                print('valid!!!')
                 data = form.cleaned_data
                 username = data["username"]
                 password = data["password"]
@@ -30,7 +28,8 @@ def login_view(request):
                 if account is not None:
                     if password == account.password:
                         login(request, account)
-                        return render(request, "home.html", {"account": account})
+                        return HttpResponse("finaly")
+                        # return render(request, "home.html", {"account": account})
                     else:
                         return HttpResponseRedirect(reverse("login"))
                 else:
@@ -39,8 +38,8 @@ def login_view(request):
                 print(form.errors)  # Print form errors to debug
                 return HttpResponse("form is not valid")
         else:
-            form = MyLoginForm()
-            return render(request, template_name="login.html", context={"form": form})
+            form = MyLoginForm ()
+            return render(request, template_name="accounts/login.html", context={"form": form})
     else:
         return HttpResponseRedirect(reverse("home"))    
      

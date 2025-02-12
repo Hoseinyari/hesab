@@ -33,7 +33,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=20, blank=True, unique=True, default="")
 
     username = models.CharField(max_length=50)
-
+    
     email = models.EmailField(max_length=200, blank=True, default="")
 
     is_active = models.BooleanField(default=True)
