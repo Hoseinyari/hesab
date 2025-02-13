@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -20,10 +20,11 @@ def login_view(request):
                 username = data["username"]
                 password = data["password"]
                 try:
-                    account = Account.objects.get(username=username)
+                    account = get_object_or_404(Account,username=username)
                 except Exception as error:
                     print(error)
-                    return HttpResponseRedirect(reverse("login"))
+                    # return HttpResponseRedirect(reverse("login"))
+                    return HttpResponse("error")
 
                 if account is not None:
                     if password == account.password:
