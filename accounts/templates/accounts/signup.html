@@ -1,4 +1,4 @@
-
+<!-- 
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -83,6 +83,92 @@
         <div class="footer">
             <p><a href= "/" >قبلاً حساب کاربری دارید؟ وارد شوید</a></p>
         </div>
+    </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Form</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signup-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+
+        .signup-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .signup-container input[type="text"],
+        .signup-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .signup-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #6a11cb;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .signup-container input[type="submit"]:hover {
+            background-color: #2575fc;
+        }
+
+        .signup-container p {
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .signup-container a {
+            color: #6a11cb;
+            text-decoration: none;
+        }
+
+        .signup-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form action="" method="post"> 
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="password_confirm" placeholder="Confirm Password" required>
+            <input type="submit" value="Sign Up">
+        </form>
+        <p>Already have an account? <a href="login.html">Login</a></p>
     </div>
 </body>
 </html>

@@ -12,10 +12,12 @@ def home_view(request):
      return render(request,"accounts/main_page.html")
 
 def login_view(request):
-    if not request.user.is_authenticated:
+    # if not request.user.is_authenticated:
         if request.method == "POST":
+            print(request.method)
             form = MyLoginForm (request.POST)
             if form.is_valid():
+                print('valid')
                 data = form.cleaned_data
                 username = data["username"]
                 password = data["password"]
@@ -39,10 +41,11 @@ def login_view(request):
                 print(form.errors)  # Print form errors to debug
                 return HttpResponse("form is not valid")
         else:
-            form = MyLoginForm ()
-            return render(request, template_name="accounts/login.html", context={"form": form})
-    else:
-        return HttpResponseRedirect(reverse("home"))    
+            return HttpResponse("request is not post")
+            # return render(request, template_name="accounts/login.html", context={"form": form})
+    # else:
+        # return HttpResponse("finaly")
+        # return HttpResponseRedirect(reverse("home"))    
      
 @login_required
 def logout_view(request):
@@ -58,22 +61,15 @@ def signup_view(request):
         if form.is_valid():
             data = form.cleaned_data
             print(form.cleaned_data)
-            try:
-                account = Account.objects.get(username=data["phone_number"])
-            except Exception as error:
+            
                 # print(data)
-                account = Account(
-                    phone_number=data["phone_number"],
-                    first_name=data["name"],
-                    last_name=data["last_name"],
-                    password=data["password"],
-                    confirm_password=data["confirm_password"]
-
-                )
-                account.save()
-                return HttpResponseRedirect(reverse("home"))
-            else:
-                return HttpResponseRedirect(reverse("home"))
+            account = Account(
+                username=data["username"],
+                password=data["password"],
+                confirm_password=data["confirm_password"])
+            
+            account.save() 
+            return HttpResponseRedirect(reverse("home"))
         else:
             return HttpResponse(f"{form.errors.as_data()}")
     else:
