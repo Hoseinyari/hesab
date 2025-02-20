@@ -1,26 +1,28 @@
 from django.shortcuts import render 
 from django.http import HttpResponseRedirect
 from transitions.models import Transition
+from accounts.models import Account
 from django.urls import reverse
 # Create your views here. 
 
 
 #نمایش تمام تراکنش ها در صفحه اصلی
 def home_view(request): 
-    all_transitions = Transition.objects.all().order_by("-date")
+    all_transitions = Transition.objects.filter(Account = Account).order_by("-date")
     return render(request,'transitions/home.html',{"all_transitions": list(all_transitions)})
 
 #نمایش خرج کرد ها
 def expose_view(request): 
-    exposes = Transition.objects.filter(category = 'expose')
+    exposes = Transition.objects.filter(Account = Account,category = 'expose')
     return render(request,'transitions/expose.html', {"exposes": list(exposes)}) 
 #نمایش درامد ها
 def income_view(request): 
-    incomes = Transition.objects.filter(category = 'income')
+    incomes = Transition.objects.filter(Account = Account,category = 'income')
     return render(request,'transitions/income.html', {"incomes": list(incomes)}) 
 #فرم اضافه کردن تراکنش
 def add_transitions(request):
     if request.method == "POST":
+        # باید ساز و کاری اضافه شود تا تراکنش برای اکانت مئرد نظر ثبت شود
         form = request.POST
 
         new_transition= Transition(

@@ -8,44 +8,48 @@ from accounts.forms import MyLoginForm , CreateAccountForm
 
 # Create your views here.
 def home_view(request):
+
+    return render(request,"accounts/main_page.html")
+
+@login_required
+def dashboard_view(request):
+    # if request.method == "POST":
+        # print(request.method)
+    # else:
+    
+    #   return HttpResponse("request is not post")
+        # return render(request, template_name="accounts/login.html", context={"form": form})  
+    return HttpResponseRedirect(reverse("home"))
+
      
-     return render(request,"accounts/main_page.html")
 
 def login_view(request):
-    # if not request.user.is_authenticated:
-        if request.method == "POST":
-            print(request.method)
-            form = MyLoginForm (request.POST)
-            if form.is_valid():
-                print('valid')
-                data = form.cleaned_data
-                username = data["username"]
-                password = data["password"]
-                try:
-                    account = get_object_or_404(Account,username=username)
-                except Exception as error:
-                    print(error)
-                    # return HttpResponseRedirect(reverse("login"))
-                    return HttpResponse("error")
+        
+        form = MyLoginForm (request.POST)
+        if form.is_valid():
+            print('valid')
+            data = form.cleaned_data
+            username = data["username"]
+            password = data["password"]
+            try:
+                account = get_object_or_404(Account,username=username)
+            except Exception as error:
+                print(error)
+                # return HttpResponseRedirect(reverse("login"))
+                return HttpResponse("error")
 
-                if account is not None:
-                    if password == account.password:
-                        login(request, account)
-                        return HttpResponse("finaly")
-                        # return render(request, "home.html", {"account": account})
-                    else:
-                        return HttpResponseRedirect(reverse("login"))
+            if account is not None:
+                if password == account.password:
+                    login(request, account)
+                    return HttpResponse("finaly")
+                    # return render(request, "home.html", {"account": account})
                 else:
-                    return HttpResponse(f"<h2>No such a User : {username}</h2>")
+                    return HttpResponseRedirect(reverse("login"))
             else:
-                print(form.errors)  # Print form errors to debug
-                return HttpResponse("form is not valid")
+                    return HttpResponse(f"<h2>No such a User : {username}</h2>")
         else:
-            return HttpResponse("request is not post")
-            # return render(request, template_name="accounts/login.html", context={"form": form})
-    # else:
-        # return HttpResponse("finaly")
-        # return HttpResponseRedirect(reverse("home"))    
+            print(form.errors)  # Print form errors to debug
+            return HttpResponse("form is not valid")
      
 @login_required
 def logout_view(request):

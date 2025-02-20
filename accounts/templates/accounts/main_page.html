@@ -53,22 +53,10 @@
     <div class="form-container">
         
         <h2>ورود یا ثبت نام</h2>
-        <form action="{% url 'login' %}" method="POST" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer;">
-                ورود
-            </button>
-            <form action="{% url 'signup' %}" method="POST" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer;">
-                    ثبت‌ نام
-                </button>
-            </form>
-        </form>
         
-        <!-- <button><a href="{% url 'login' %}">ورود (Login)</a></button>
+        <button><a href="{% url 'login' %}">ورود (Login)</a></button>
         <button><a href="{% url 'signup' %}">ثبت نام (SignUp)</a></button>
-     -->
+    
     </div>
 </body>
 </html>
