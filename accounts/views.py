@@ -7,76 +7,70 @@ from accounts.models import *
 from accounts.forms import MyLoginForm , CreateAccountForm
 
 # Create your views here.
-def home_view(request):
+def main_page_view(request):
 
     return render(request,"accounts/main_page.html")
 
 @login_required
-def dashboard_view(request):
-    # if request.method == "POST":
-        # print(request.method)
-    # else:
-    
-    #   return HttpResponse("request is not post")
-        # return render(request, template_name="accounts/login.html", context={"form": form})  
+def dashboard_view(request):  
     return HttpResponseRedirect(reverse("home"))
 
      
 
 def login_view(request):
-        
-        form = MyLoginForm (request.POST)
+    if request.method == 'POST':
+        form = MyLoginForm(request.POST)
         if form.is_valid():
-            print('valid')
+            print('Form is valid')
             data = form.cleaned_data
             username = data["username"]
             password = data["password"]
-            try:
-                account = get_object_or_404(Account,username=username)
-            except Exception as error:
-                print(error)
-                # return HttpResponseRedirect(reverse("login"))
-                return HttpResponse("error")
 
-            if account is not None:
-                if password == account.password:
-                    login(request, account)
-                    return HttpResponse("finaly")
-                    # return render(request, "home.html", {"account": account})
-                else:
-                    return HttpResponseRedirect(reverse("login"))
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                # Log the user in
+                login(request, user)
+                return redirect('dashboard')
             else:
-                    return HttpResponse(f"<h2>No such a User : {username}</h2>")
+                return render(request, "accounts/login.html", {
+                    'form': form,
+                    'error': 'Invalid username or password.'
+                })
         else:
-            print(form.errors)  # Print form errors to debug
-            return HttpResponse("form is not valid")
-     
+            print(form.errors)
+            return render(request, "accounts/login.html", {
+                'form': form,
+                'error': 'Form is not valid. Please correct the errors.'
+            })
+    else:
+        form = MyLoginForm()  # Instantiate the form for GET requests
+        return render(request, "accounts/login.html", {'form': form})
+
+
 @login_required
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))        
 
 
-def signup_view(request):
 
+def signup_view(request):
     if request.method == 'POST':
         form = CreateAccountForm(request.POST)
-        print(form)
         if form.is_valid():
             data = form.cleaned_data
-            print(form.cleaned_data)
-            
-                # print(data)
-            account = Account(
+            # Use the custom manager's create_user method to create the account
+            account = Account.objects.create_user(
                 username=data["username"],
-                password=data["password"],
-                confirm_password=data["confirm_password"])
-            
-            account.save() 
-            return HttpResponseRedirect(reverse("home"))
+                email=data["email"],
+                password=data["password"]  
+            )
+            login(request, account)
+            return redirect('home')
         else:
-            return HttpResponse(f"{form.errors.as_data()}")
+            return render(request, "accounts/signup.html", {"form": form})
     else:
         form = CreateAccountForm()
-        return render(request,"accounts/main_page.html", {"form":form})
+        return render(request, "accounts/signup.html", {"form": form})
 
