@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from transitions.models import Transition
 from accounts.models import Account
 from django.urls import reverse
+
 # Create your views here. 
 
 

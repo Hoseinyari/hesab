@@ -5,6 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from accounts.models import *
 from accounts.forms import MyLoginForm , CreateAccountForm
+from transitions.views import home_view
+
 
 # Create your views here.
 def main_page_view(request):
@@ -12,8 +14,9 @@ def main_page_view(request):
     return render(request,"accounts/main_page.html")
 
 @login_required
-def dashboard_view(request):  
-    return HttpResponseRedirect(reverse("home"))
+def dashboard_view(request): 
+    # it should show the account transitions 
+    pass
 
      
 
