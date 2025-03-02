@@ -12,12 +12,6 @@ from transitions.views import home_view
 def main_page_view(request):
 
     return render(request,"accounts/main_page.html")
-
-@login_required
-def dashboard_view(request): 
-    # it should show the account transitions 
-    pass
-
      
 
 def login_view(request):
@@ -34,7 +28,7 @@ def login_view(request):
             if user is not None:
                 # Log the user in
                 login(request, user)
-                return redirect('dashboard')
+                return redirect('home_view')
             else:
                 return render(request, "accounts/login.html", {
                     'form': form,
