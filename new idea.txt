@@ -6,5 +6,5 @@ debug:
 
 after login we should show home view of transitions app 
  _________________________________________
-
+ in views.py we should set account currectly
  
