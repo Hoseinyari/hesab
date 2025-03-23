@@ -26,7 +26,7 @@ class AccountManger(UserManager):
 
 
 
-
+# account will be unique by username
 class Account(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50,unique=True)
     

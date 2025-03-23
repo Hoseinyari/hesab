@@ -7,58 +7,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>فرم ورود و ثبت نام</title>
     <style>
+        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
-        }
-        .form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .form-container h2 {
-            margin-bottom: 20px;
-        }
-        .form-container button {
-            display: block;
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            font-size: 16px;
-            width: 20vw;
-            align-content: center;
-        }
-        .form-container button:hover {
-            background-color: #0056b3;
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple gradient background */
+            color: #333;
         }
 
-        a{
+        /* Form Container */
+        .form-container {
+            background: #fff; /* White background */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Soft shadow */
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .form-container h2 {
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #6a11cb; /* Purple text for the heading */
+        }
+
+        /* Buttons */
+        .form-container button {
             display: block;
-            text-decoration: none;
-            color: white;
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 8px;
+            background: #6a11cb; /* Purple background */
+            color: #fff; /* White text */
             font-size: 16px;
-            font-weight: bolder;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .form-container button:hover {
+            background: #2575fc; /* Lighter purple on hover */
+            transform: translateY(-2px); /* Slight lift */
+        }
+
+        .form-container button:active {
+            transform: translateY(0); /* Reset on click */
+        }
+
+        /* Links */
+        a {
+            text-decoration: none;
+            color: #fff; /* White text for links */
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 20px;
+            }
+            .form-container h2 {
+                font-size: 20px;
+            }
+            .form-container button {
+                padding: 12px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="form-container">
-        
         <h2>ورود یا ثبت نام</h2>
-        
         <button><a href="{% url 'login' %}">ورود (Login)</a></button>
         <button><a href="{% url 'signup' %}">ثبت نام (SignUp)</a></button>
-    
     </div>
 </body>
 </html>

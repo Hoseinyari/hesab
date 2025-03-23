@@ -1,8 +1,10 @@
 from django.db import models
+from accounts.models import Account
 
 # Create your models here
 
 class Transition(models.Model):
+    account_id = Account.username
     text = models.CharField(max_length=300)
     amount = models.PositiveBigIntegerField()
     date = models.DateTimeField(auto_now=True , editable=False)

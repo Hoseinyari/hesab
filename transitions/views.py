@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 #نمایش تمام تراکنش ها در صفحه اصلی
 @login_required
 def home_view(request): 
-    all_transitions = Transition.objects.filter().order_by("-date")
+    all_transitions = Transition.objects.filter(user=request.user).order_by("-date")
     return render(request,'transitions/home.html',{"all_transitions": list(all_transitions)})
 @login_required
 #نمایش خرج کرد ها
