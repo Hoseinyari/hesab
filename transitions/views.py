@@ -31,6 +31,7 @@ def add_transitions(request):
         form = request.POST
 
         new_transition= Transition(
+            user = request.user,
             text=form['text'], 
             amount=form['amount'], 
             date=form['date'], 

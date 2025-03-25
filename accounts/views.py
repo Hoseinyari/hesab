@@ -24,14 +24,13 @@ def login_view(request):
             password = data["password"]
 
             user = authenticate(request, username=username, password=password)
+            #what should i do to authenticate staff user too
 
             if user is not None:
                 # Log the user in
-                print("succses")
                 login(request, user)
                 return redirect('home_view')
             else:
-                print("not succses")
                 return render(request, "accounts/login.html", {
                     'form': form,
                     'error': 'Invalid username or password.'
@@ -60,6 +59,7 @@ def signup_view(request):
         if form.is_valid():
             data = form.cleaned_data
             # Use the custom manager's create_user method to create the account
+            #what should i do to have user field
             account = Account.objects.create_user(
                 username=data["username"],
                 email=data["email"],
