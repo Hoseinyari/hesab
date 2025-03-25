@@ -4,7 +4,7 @@ from accounts.models import Account
 # Create your models here
 
 class Transition(models.Model):
-    account_id = Account.username
+    user = models. ForeignKey(Account, on_delete=models.CASCADE)
     text = models.CharField(max_length=300)
     amount = models.PositiveBigIntegerField()
     date = models.DateTimeField(auto_now=True , editable=False)

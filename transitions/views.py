@@ -1,7 +1,6 @@
 from django.shortcuts import render 
 from django.http import HttpResponseRedirect
 from transitions.models import Transition
-from accounts.models import Account
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 

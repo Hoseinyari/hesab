@@ -27,9 +27,11 @@ def login_view(request):
 
             if user is not None:
                 # Log the user in
+                print("succses")
                 login(request, user)
                 return redirect('home_view')
             else:
+                print("not succses")
                 return render(request, "accounts/login.html", {
                     'form': form,
                     'error': 'Invalid username or password.'
