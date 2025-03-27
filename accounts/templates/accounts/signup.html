@@ -76,7 +76,8 @@
 <body>
     <div class="signup-container">
         <h2>Sign Up</h2>
-        <form action="" method="post"> 
+        <form action="/home/" method="post"> 
+            {% csrf_token %}
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="password" name="password_confirm" placeholder="Confirm Password" required>

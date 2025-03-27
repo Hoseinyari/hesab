@@ -62,8 +62,8 @@ def signup_view(request):
             #what should i do to have user field
             account = Account.objects.create_user(
                 username=data["username"],
-                email=data["email"],
-                password=data["password"]  
+                password=data["password"],
+                is_staff = True
             )
             login(request, account)
             return redirect('home')
