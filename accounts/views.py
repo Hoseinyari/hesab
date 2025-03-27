@@ -24,13 +24,21 @@ def login_view(request):
             password = data["password"]
 
             user = authenticate(request, username=username, password=password)
-            #what should i do to authenticate staff user too
-
+            
+            print(user)
+            
+            # First check if user exists (authentication succeeded)
             if user is not None:
-                # Log the user in
+                # Then you can check if user is staff
+                if user.is_staff:
+                    # Staff user - do something special if needed
+                    print("User authenticated as staff")
+                # Log the user in (for both staff and regular users)
                 login(request, user)
+                print("User authenticated successfully")
                 return redirect('home_view')
             else:
+                # Authentication failed
                 return render(request, "accounts/login.html", {
                     'form': form,
                     'error': 'Invalid username or password.'
@@ -42,7 +50,7 @@ def login_view(request):
                 'error': 'Form is not valid. Please correct the errors.'
             })
     else:
-        form = MyLoginForm()  # Instantiate the form for GET requests
+        form = MyLoginForm()
         return render(request, "accounts/login.html", {'form': form})
 
 
@@ -64,6 +72,7 @@ def signup_view(request):
                 username=data["username"],
                 password=data["password"],
                 is_staff = True
+            
             )
             login(request, account)
             return redirect('home')
