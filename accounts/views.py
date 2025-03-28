@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from accounts.models import *
-from accounts.forms import MyLoginForm , CreateAccountForm
+from accounts.forms import MyLoginForm , SignUpForm
 from transitions.views import home_view
 
 
@@ -59,26 +59,42 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))        
 
-
-
+#sign up view should be change
 def signup_view(request):
     if request.method == 'POST':
-        form = CreateAccountForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-            # Use the custom manager's create_user method to create the account
-            #what should i do to have user field
-            account = Account.objects.create_user(
-                username=data["username"],
-                password=data["password"],
-                is_staff = True
-            
-            )
-            login(request, account)
+            user = form.save()
+            user.refresh_from_db()  # load the profile instance created by the signal
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
             return redirect('home')
-        else:
-            return render(request, "accounts/signup.html", {"form": form})
     else:
-        form = CreateAccountForm()
-        return render(request, "accounts/signup.html", {"form": form})
+        form = SignUpForm()
+    return render(request, 'accounts/signup.html', {'form': form})
+
+
+
+# def signup_view(request):
+#     if request.method == 'POST':
+#         form = CreateAccountForm(request.POST)
+#         if form.is_valid():
+#             data = form.cleaned_data
+#             # Use the custom manager's create_user method to create the account
+#             #what should i do to have user field
+#             account = Account.objects.create_user(
+#                 username=data["username"],
+#                 password=data["password"],
+#                 is_staff = True
+            
+#             )
+#             login(request, account)
+#             return redirect('home')
+#         else:
+#             return render(request, "accounts/signup.html", {"form": form})
+#     else:
+#         form = CreateAccountForm()
+#         return render(request, "accounts/signup.html", {"form": form})
 
