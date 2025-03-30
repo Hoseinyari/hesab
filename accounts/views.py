@@ -64,13 +64,26 @@ def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            user.refresh_from_db()  # load the profile instance created by the signal
-            user.save()
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=user.username, password=raw_password)
-            login(request, user)
-            return redirect('home')
+            data = form.cleaned_data
+            print(form.cleaned_data)
+            try:
+                
+                user = Account.objects.get(username= data["username"])
+            
+            except Exception as error:
+                user = Account(
+                    username = data["username"],
+                    email = data["email"],
+                    raw_password = form.cleaned_data.get('password1'),
+                   )
+                user.save()
+                #it not nuccesry to auto login after signup 
+                # user = authenticate(username=user.username, password=raw_password)
+            
+                # login(request, user)
+            return redirect('main_page')
+        else:
+            return HttpResponse("form is not valid")
     else:
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})

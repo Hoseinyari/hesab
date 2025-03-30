@@ -52,4 +52,3 @@ class Account(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     username = models.CharField(max_length=50)
-
