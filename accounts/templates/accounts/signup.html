@@ -1,90 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load static %}
-    <link rel="shortcut icon" type="image/png" href="{% static 'images/signin.png' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Form</title>
+    <title>Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
+            min-height: 100vh;
         }
-
-        .signup-container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            width: 300px;
-            text-align: center;
-        }
-
-        .signup-container h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .signup-container input[type="text"],
-        .signup-container input[type="password"] {
+        .form-input {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .signup-container input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #6a11cb;
-            border: none;
-            border-radius: 5px;
+            padding: 0.75rem 1rem;
+            margin-top: 0.25rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
             color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
+            outline: none;
+            transition: all 0.3s ease;
         }
-
-        .signup-container input[type="submit"]:hover {
-            background-color: #2575fc;
+        .form-input::placeholder {
+            color: rgba(216, 180, 254, 0.7);
         }
-
-        .signup-container p {
-            margin-top: 20px;
-            color: #666;
-        }
-
-        .signup-container a {
-            color: #6a11cb;
-            text-decoration: none;
-        }
-
-        .signup-container a:hover {
-            text-decoration: underline;
+        .form-input:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(216, 180, 254, 0.5);
+            box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.5);
         }
     </style>
 </head>
-<body>
-    <div class="signup-container">
-        <h2>Sign Up</h2>
-        <form action="/home/" method="post"> 
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="text" name="email" placeholder="email" >
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="password_confirm" placeholder="Confirm Password" required>
-            <input type="submit" value="Sign Up">
-        </form>
-        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+<body class="antialiased">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md px-8 py-10 bg-white/10 backdrop-blur-lg rounded-3xl shadow-lg border border-white/20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-extrabold text-white">Create Account</h2>
+                <p class="mt-2 text-purple-100">Join our community today</p>
+            </div>
+
+            {% if form.errors %}
+            <div class="mb-6 p-4 bg-red-500/20 rounded-lg border border-red-500/50">
+                <h3 class="text-red-100 font-medium">Please fix these errors:</h3>
+                <ul class="mt-2 text-sm text-red-100">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="id_username" class="block text-sm font-medium text-purple-100">Username</label>
+                    <input type="text" name="username" id="id_username" 
+                           class="form-input"
+                           placeholder="Username"
+                           required
+                           value="{{ form.username.value|default:'' }}">
+                </div>
+                
+                <div>
+                    <label for="id_email" class="block text-sm font-medium text-purple-100">Email</label>
+                    <input type="email" name="email" id="id_email" 
+                           class="form-input"
+                           placeholder="your@email.com"
+                           required
+                           value="{{ form.email.value|default:'' }}">
+                </div>
+                
+                <div>
+                    <label for="id_password1" class="block text-sm font-medium text-purple-100">Password</label>
+                    <input type="password" name="password1" id="id_password1" 
+                           class="form-input"
+                           required>
+                    {% if form.password1.help_text %}
+                    <p class="mt-1 text-xs text-purple-200">{{ form.password1.help_text }}</p>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <label for="id_password2" class="block text-sm font-medium text-purple-100">Confirm Password</label>
+                    <input type="password" name="password2" id="id_password2" 
+                           class="form-input"
+                           required>
+                </div>
+                
+                <button type="submit" class="w-full py-3 px-4 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition duration-200 shadow-lg hover:shadow-purple-500/30">
+                    Sign Up
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-sm text-purple-200">
+                    Already have an account? 
+                    <a href="{% url 'login' %}" class="font-semibold text-white hover:text-purple-300 underline">Log in</a>
+                </p>
+            </div>
+        </div>
     </div>
 </body>
 </html>

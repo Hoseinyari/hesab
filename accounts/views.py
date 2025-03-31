@@ -6,7 +6,10 @@ from django.urls import reverse
 from accounts.models import *
 from accounts.forms import MyLoginForm , SignUpForm
 from transitions.views import home_view
-
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib.auth import get_user_model
 
 # Create your views here.
 def main_page_view(request):
@@ -60,34 +63,19 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("login"))        
 
 #sign up view should be change
+# accounts/views.py
+
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-            print(form.cleaned_data)
-            try:
-                
-                user = Account.objects.get(username= data["username"])
-            
-            except Exception as error:
-                user = Account(
-                    username = data["username"],
-                    email = data["email"],
-                    raw_password = form.cleaned_data.get('password1'),
-                   )
-                user.save()
-                #it not nuccesry to auto login after signup 
-                # user = authenticate(username=user.username, password=raw_password)
-            
-                # login(request, user)
-            return redirect('main_page')
-        else:
-            return HttpResponse("form is not valid")
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful!")
+            return redirect('home_view')
     else:
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})
-
 
 
 # def signup_view(request):
