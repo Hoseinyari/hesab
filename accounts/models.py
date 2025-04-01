@@ -2,22 +2,23 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, UserManager , PermissionsMixin
 from django.utils import  timezone
 
-
+# manager account
 class AccountManger(UserManager):
-    def _create_user(self, username : str | None, password : str | None, **extra_fields):
-        Account = self.model(username=username, **extra_fields)
-        Account.set_password(password)
+    # # create staff user#
+    # def _create_user(self, username : str | None, password : str | None, **extra_fields):
+    #     Account = self.model(username=username, **extra_fields)
+    #     Account.set_password(password)
 
-        Account.save(using=self._db)
+    #     Account.save(using=self._db)
 
-        return Account
-
+    #     return Account
+    #create active user
     def create_user(self, username :str | None, password :str | None, **extra_fields):
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
 
         return self._create_user(username, password, **extra_fields)
-
+    #create superuser
     def create_superuser(self, username :str | None, password : str | None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
@@ -27,6 +28,7 @@ class AccountManger(UserManager):
 
 
 # account will be unique by username
+#account model for normal user
 class Account(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50,unique=True)
     

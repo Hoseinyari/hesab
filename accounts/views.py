@@ -62,40 +62,16 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))        
 
-#sign up view should be change
-# accounts/views.py
-
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
+        #if validation be succesfull it will save account and log user in
         if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful!")
             return redirect('home_view')
     else:
+        #else it will send you to signup page with signup form
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})
-
-
-# def signup_view(request):
-#     if request.method == 'POST':
-#         form = CreateAccountForm(request.POST)
-#         if form.is_valid():
-#             data = form.cleaned_data
-#             # Use the custom manager's create_user method to create the account
-#             #what should i do to have user field
-#             account = Account.objects.create_user(
-#                 username=data["username"],
-#                 password=data["password"],
-#                 is_staff = True
-            
-#             )
-#             login(request, account)
-#             return redirect('home')
-#         else:
-#             return render(request, "accounts/signup.html", {"form": form})
-#     else:
-#         form = CreateAccountForm()
-#         return render(request, "accounts/signup.html", {"form": form})
-

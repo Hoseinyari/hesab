@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'accounts'
 ]
 
-
+# to define which user model you want to authenticate with( your custom model or Django built-in User model)
 AUTH_USER_MODEL = 'accounts.Account'  
 
 MIDDLEWARE = [
@@ -78,20 +78,13 @@ APPEND_SLASH=True
 WSGI_APPLICATION = 'hesab.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
+#which conditions you should have for password (for security)
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -121,9 +114,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
 

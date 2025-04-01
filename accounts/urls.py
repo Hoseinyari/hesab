@@ -7,8 +7,6 @@ urlpatterns = [
 
     path("home/", home_view ,name='home_view'),
 
-    # path("dashboard/", dashboard_view, name='dashboard'),
-
     path("income/",income_view,name="income_view"),    
 
     path("expose/",expose_view,name="expose_view"),

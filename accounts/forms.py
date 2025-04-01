@@ -11,7 +11,7 @@ class MyLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(), label="password")
 
 
-
+#for getting default django user
 User = get_user_model()
 
 class SignUpForm(UserCreationForm):
@@ -23,13 +23,13 @@ class SignUpForm(UserCreationForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Simplify password validation
+        # easy password validation
         self.fields['password1'].help_text = None
         self.fields['password2'].help_text = None
         
-        # Remove default validators and add simpler ones
+        # add simpler password validation setting
         for validator in self.fields['password1'].validators[:]:
             self.fields['password1'].validators.remove(validator)
         
-        # Add just minimum length validator
+        #make minimum password length
         self.fields['password1'].min_length = 6
